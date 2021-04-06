@@ -1,0 +1,289 @@
+{% load static %}
+{% load qr_code %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="{% static 'css/home.css' %}" rel="stylesheet">
+	<meta name="description" content="réservation de places de parking GeoSpark parking intelligent">
+	<meta name="author" content="Mohabeddine Hadjer">
+	<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<title>Réservation places</title>
+
+	
+</head>
+<body>
+<div class="container-fluid">
+	
+	<div class="row d-flex justify-content-center">
+		
+		<div class="jumbotron jumbotron-fluid mt-5 rounded col-md-10 col-11 shadow-sm" style="background-color: white">
+  <div class="container">
+  	{% if delta.R == True %}
+    <h1 class="display-4" style="font-size: 2.7em">Votre réservation va expirer dans :</h1>
+    
+      <time id="countdown" class="col-md-5 col-12 float-right mt-3 text-center" style="font-size: 4em;">{{delta.reserveDuration.minutes}}</time>
+      <p class="col-md-6 col-12 d-flex">
+      Bienvenue {{request.user}}<br>
+      Veuillez ne pas vérouiller votre écran durant la durée de la réservation.<br> <br>
+      Vous avez réservez la place numéro {{state.placeName}}. <br>
+      Si vous n'arrivez pas à temps vous serez automatiquement rediriger vers la page précédente.
+   </p>
+      <p id="state"></p>
+      <form method="POST" class="text-center">{% csrf_token %}
+
+      	<button class="btn btn-primary col-md-5 col-10" type="submit" value="annuler" name="home" href="{% url 'home' %}" id="home"> Annuler la réservation</button>
+      </form>
+    {% else %}
+    <h1 class="display-4 text-center" style="font-size: 2.7em">Vous n'avez effectué aucune réservation</h1>
+    <div class="text-center"><a href="{% url 'home' %}"> veuillez revenir au parking</a></div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+</div>
+
+
+</div>
+<script type="text/javascript">
+var url = 'update_reservation/{{delta.id}}/';
+	function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+
+
+	//countdown:
+	var seconds = parseInt(localStorage.getItem("sec")) || {{parking.reserveDuration.seconds}}
+
+	function secondPassed() {
+	  var minutes = Math.round((seconds - 30)/60);
+	      remainingSeconds = seconds % 60;
+	  
+	  if (remainingSeconds < 10) {
+	    remainingSeconds = "0" + remainingSeconds;  
+	  }
+	
+	  document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+	  if (seconds == 0) {
+	    clearInterval(countdownTimer);
+	    document.getElementById('countdown').innerHTML = "00:00"; 
+	  
+	     fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({
+         							'timeout': true,
+         							})}
+				).then(function(response){
+					/*console.log(response)*/})
+
+
+	  } else {
+	    seconds=seconds-1;
+	    localStorage.setItem("sec",seconds);
+	    requestWakeLock();
+	    document.getElementById('home').onclick = function(event){
+		window.localStorage.removeItem("sec",seconds);
+
+    	}
+	    fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({
+         							'timeout': false,
+         							})}
+				).then(function(response){
+					/*console.log(response)*/},10000);}
+
+	
+	
+	//console.log('{{delta.arrived}}')
+	
+
+	//scenarios arrived not arrived  
+	  
+	fetch('detail_reservation/{{delta.id}}/' )
+	.then((resp) => resp.json())
+    .then(function(data){
+    	var reservation = data;
+    	if (reservation.arrived === true){
+    		document.getElementById('countdown').innerHTML = "00:00";
+    		
+			
+		}
+
+   if(reservation.arrived === false && seconds === 0)
+    {
+    document.getElementById('countdown').innerHTML = "00:00";
+    fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({
+         							'timeout': true,
+         							'R':false,
+
+         							})}
+				).then(function(response){
+					/*console.log(response)*/
+					window.location.href= "{% url 'home' %}"})
+					.catch(function(e){
+	  					console.log(e)})
+    }
+	
+    })
+	}
+	var countdownTimer = setInterval('secondPassed()', 1000);
+
+ 
+
+//Calcul de la distance:
+	function distance(lon1, lat1, lon2, lat2) {
+  	var R = 6371; // Radius of the earth in km
+ 	 var dLat = (lat2-lat1).toRad();  // Javascript functions in radians
+ 	 var dLon = (lon2-lon1).toRad(); 
+  	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2); 
+  	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+ 	 var d = R * c; // Distance in km
+  	return d;
+  	
+	}
+/** Converts numeric degrees to radians */
+	if (typeof(Number.prototype.toRad) === "undefined") {
+  		Number.prototype.toRad = function() {
+    	return this * Math.PI / 180;
+  	}
+	}	
+
+
+//geolocalisation:
+	let G, options, spans;
+
+	document.addEventListener('DOMContentLoaded', init);
+
+	function init(){
+    	if(navigator.geolocation){
+        	let giveUp = 1000 * 30;  //30 seconds
+        	let tooOld = 1000 * 60 * 60;  //one hour
+        	options ={
+            	enableHighAccuracy: false,
+            	timeout: giveUp,
+            	maximumAge: tooOld
+        }
+        
+        id=navigator.geolocation.watchPosition(gotPos, posFail, options);
+       
+
+    	}
+    else{
+        //using an old browser that doesn't support geolocation}
+	}
+	}
+	function gotPos(position){
+		var latitude = position.coords.latitude;
+		var longitude= position.coords.longitude;
+		var accuracy = position.coords.accuracy;
+		longi="{{long}}".replace(",",".")
+		lati = "{{lat}}".replace(",",".")
+		dis = "{{distance}}".replace(",",".")
+		console.log("longitude:",longi)
+		var long = parseFloat(longi)
+		var lat = parseFloat(lati)
+		var dist = parseFloat(dis)
+		console.log("latidude:",lat,"Distance périmètre" ,dist)
+		var d = distance(longitude, latitude, long, lat);
+		console.log("distance utilisateur",d);
+		
+		if (d <= dist){
+		var arrived = true;
+		console.log(arrived);
+		navigator.geolocation.clearWatch(id);
+		fetch(url, {
+			method:'POST',
+			headers:{
+				'Content-type':'application/json',
+				'X-CSRFToken':csrftoken,
+			},
+			body:JSON.stringify({'arrived': arrived,
+         							'R': true,
+         						'timeout': true,})}
+				).then(function(response){
+				window.location.href="{% url 'reservation_success' %}"
+				window.localStorage.clear();	
+					/*console.log(response)*/})
+		
+			}
+		else{
+		var arrived = false;
+			fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({
+         							'arrived': arrived,
+
+         							//'R':true,
+         							})}
+				).then(function(response){
+					/*console.log(response)*/})
+		}
+
+
+		}
+		
+	function posFail(Error){let errors = {
+        1: 'No permission',
+        2: 'Unable to determine',
+        3: 'Took too long'}
+        console.log(errors[Error]);
+        /*document.querySelector('h1').textContent = errors[err];*/
+        
+    }
+	
+	const requestWakeLock = async () => {
+		  try {
+
+		    const wakeLock = await navigator.wakeLock.request('screen');
+		  } catch (err) {
+		    // the wake lock request fails - usually system related, such low as battery
+
+		    console.log(`${err.name}, ${err.message}`);
+		  }
+		}
+
+		/**/
+
+
+	</script>
+</body>
+</html>

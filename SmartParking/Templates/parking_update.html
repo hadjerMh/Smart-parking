@@ -1,0 +1,98 @@
+
+{% load static %}
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<link href="{% static 'css/training.css' %}" rel="stylesheet">
+    	<meta name="description" content="Actualisation GeoSpark parking intelligent">
+		<meta name="author" content="Mohabeddine Hadjer">
+		<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    		<script>
+    		$(function() {
+    			$("img").delay(900);
+    			$("#pw").tooltip();}
+    			);
+    		</script>
+    	<!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+		<title>Modification parking GeoSpark</title>
+	</head>
+	<body>
+
+<div class="container-fluid">
+	<div class="row">{% include 'navbar_admin.html' %}
+	<div class="row d-flex justify-content-center ">
+
+		<form class=" col-lg-9 col-sm-10 col-11 shadow align-middle mt-5" style="background: white" method="POST"> {% csrf_token %}
+			<div class="row justify-content-center m-1">
+			<h1 class="col-12 font-weight-normal mt-3" style="font-size:1.8em "> Bienvenue {{request.user}} au parking {{parking.compagnie_site}}</h1>
+			<legend class="col-12"> Coordonnées GPS de votre parking: </legend> <br>
+
+			<label for="latitude" class="col-sm-5 col-10 mt-1 mb-1">Latitude: </label> <input type="text" name="latitude" id="latitude" class="col-sm-5 col-10 mt-1 mb-1 form-control"   required> <br>
+			<label for="longitude" class="col-sm-5 col-10 mt-1 mb-1">Longitude: </label> <input type="text" name="longitude" id="longitude" class="col-sm-5 col-10 mt-1 mb-1 form-control"   required> <br>
+			<label for="timeReservation" class="col-sm-5 col-10 mt-1 mb-1">Durée de la réservation à appliquer en minutes: </label> <input type="text" name="timeReservation" id="timeReservation" class="col-sm-5 col-10 mt-1 mb-1 form-control"  required> <br>
+			<legend class="col-12">Distance souhaitée pour que l'utilisateur soit considéré comme étant arrivé au parking (veuillez mentionner la distance en kilomères exemple 500m = 0.5km) </legend> <br>
+			<label for="distance" class="col-sm-5 col-10 mt-1 mb-1">La distance: </label> <input type="text" name="distance" id="distance" class="col-sm-4 col-10 mt-1 mb-1 form-control"  required> <br>
+			<legend class="col-12" style="font-size: 1.5em"> L'ajout de places au parking:</legend>
+			<label class="m-1 col-sm-6 col-11">Vous avez {{len_p}} places combien-voulez vous en ajouter: </label>
+			<input type="text" name="place_ajouter" placeholder="le nombre de places à ajouter" id="place_ajouter" class="col-sm-5 col-10 m-1 form-control"> 
+			
+			<legend class="col-12 mb-2" style="font-size: 1.5em">Nomination ou Suppression de places: </legend>
+			{% for place in places %}
+			<label class="col-12 m-sm-1 d-inline-flex"  for="{{place.placeName}}"> <p class="p-2">{{place.placeName}} : </p>
+			 <input type="text" name="places" placeholder="le nom de la place" id="{{place.placeName}}" class="col-sm-8 col-lg-9 col-6  m-sm-1 form-control" id="places"> 
+			 <button type="button" name="y" value="{{place.placeName}}" class="btn col-2 m-sm-1 btn-link" data-toggle="modal" data-target="#_{{place.placeName}}" ><p style=" font-size: 1.2em; height: 3em" class="text-center">  Supprimer </p> </button></label>
+			 <div class="modal fade" id="_{{place.placeName}}" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <p> êtes-vous sûr de vouloir supprimer la place {{place.placeName}} ?</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+			        <button name= "sup"  class="btn btn-primary check" value="{{place.placeName}}"  type="submit"> Confirmer </button>
+			    </div>
+			    </div>
+			    </div>
+			    </div>
+			{% endfor %}
+			<a href="{% url 'administrateur_homes' %}" type= "reset" class="btn btn-primary col-5 mr-2 mt-3">Annuler</a>
+			<button type= "submit" class="btn btn-primary col-5 ml-2 mt-3">Actualiser</button>
+
+			
+			 
+			
+		
+		
+	</form>
+	
+</div>
+</div> </div>
+<script type="text/javascript">document.getElementById("latitude").defaultValue = "{{parking.parking_latitude}}";
+document.getElementById("longitude").defaultValue = "{{parking.parking_longitude}}";
+document.getElementById("distance").defaultValue = "{{parking.distance}}";
+duration = "{{parking.reserveDuration.seconds}}" /60;
+document.getElementById("timeReservation").defaultValue =duration;
+{% for place in places %}
+{% if place.place_given_name == "None" %}
+{% else %}
+document.getElementById("{{place.placeName}}").defaultValue ="{{place.place_given_name}}";
+{% endif %}
+{% endfor %}
+</script>
+</body>
+</html>

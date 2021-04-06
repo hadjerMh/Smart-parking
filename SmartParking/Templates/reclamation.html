@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="GeoSpark parking intelligent">
+		<meta name="author" content="Mohabeddine Hadjer">
+		<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+    		<link href="{% static 'css/training.css' %}" rel="stylesheet">
+
+    		
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    		<script>
+    		$(function() {
+    			$("img").delay(900);
+    			$("#pw").tooltip();}
+    			);
+    		</script>
+    	<!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<title>Reclamation</title>
+</head>
+<body>
+	<div class="container-fluid">
+	<div class="row">{% include 'navbar.html' %}
+	<div class="row d-flex justify-content-center ">
+		
+	<form class="col-8 shadow align-middle mt-5" style="background: white" method="POST" enctype="multipart/form-data" action=""> {% csrf_token %}
+	<div class="row d-flex justify-content-left m-1">
+		<h1 class="font-weight-normal col-10 m-3 border-bottom mb-5 ">Reclamation</h1>
+			<br>
+			<p class="col-12 text-left m-2">Vous pouvais effectuer une réclamation ici si vous avez un quelconque problème</p>
+			{% load crispy_forms_tags %}
+			<div class="form-row d-flex justify-content-left">
+				 <div class="form-group col-8 m-4">
+				{{form.choice|as_crispy_field}}</div>
+				<div class="form-group col-8 m-4">
+				{{form.rec_text|as_crispy_field}}</div>
+				<div class="form-group col-8 m-4">
+				{{form.pic|as_crispy_field}}</div>
+	<div class="row d-flex justify-content-center col-12">
+	<a href="{% url 'home' %}" class=" col-3 btn btn-primary m-2 " type="reset">annuler</a>
+	<button class="btn btn-primary col-3 m-2" type="submit">Valider</button></div>	</div>
+	</div>
+	
+</form>
+</div></div>
+</div>
+</body>
+</html>

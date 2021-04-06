@@ -1,0 +1,24 @@
+{% extends "admin.html" %}
+{% block content %}
+<h1 class="font-weight-normal col-12 border-bottom mb-5"  style="font-size: 1.8em">Bienvenue dans l'espace administrateur du site</h1>
+
+<p class="mb-3 col-12">{{request.user}} au tant qu'administrateur vous pouvez effectuer les tâches suivantes:<br></p>
+<a data-aos="fade-down" class="btn rounded-circle btn-primary m-sm-2 mt-3 h-50" type="submit"  href="{% url 'administrateur_creation_parking' %}">+</a><p class="col-10 col-lg-11 pt-3" data-aos="fade-down"> Créer un parking selon vos spécifications.  </p>
+
+<a data-aos="fade-down" data-aos-duration="1000" class="btn rounded-circle btn-primary m-sm-2 h-50" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" data-target="#collapseExample" style="color: white;" >+</a><p class="col-10 col-lg-11 pt-2" data-aos="fade-down" data-aos-duration="1000">  Effectuer des modifications sur les paramètres du parking.  </p>
+<div class="collapse col-12 mb-2" id="collapseExample">
+  <div class="card card-body">
+  	{% for parking in parkings %}
+   <a class="btn btn-outline-primary col-sm-7 col-12 m-1" href="{% url 'Parking_update' id=parking.id %}">{{parking.compagnie_site}}</a>
+   {% endfor %}
+  </div>
+</div>
+
+<a data-aos="fade-down" data-aos-duration="2000" class="btn rounded-circle btn-primary m-sm-2 mb-2 h-50" href="{% url 'Parking_delete' %}">+</a> <p  data-aos="fade-down"  data-aos-duration="2000" class="col-10 col-lg-11 pt-2">Supprimer le parking. </span><br>
+</p>
+
+
+{% endblock %}
+
+
+  

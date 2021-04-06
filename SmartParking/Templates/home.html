@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="GeoSpark parking intelligent">
+    <meta name="author" content="Mohabeddine Hadjer">
+    <link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <title>Parking GeoSpark</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'navbar.html' %}
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row d-flex justify-content-center mt-4 m-1">
+            <div class="  col-12 col-sm-10  Bienvenue shadown-lg text-center">
+                {% for message in messages %}
+                <p class="alert alert-primary col-12" role="alert"> {{message}} </p>
+                {% endfor %}
+                <p>Bienvenue {{request.user}}<br> Le nombre de places libres est de <big id="f_places">{{number_places_free}}</big> <br> Le nombre de places total est de <big>{{ number_places }}</big> <br>
+                </p>
+
+                <form class="col-12 mt-5 mb-5 " method="POST">{% csrf_token %} {% for instance in object_lists %} {% if instance.statePlace == True %}
+
+                    <button class=" rounded col-3 col-md-1 h-100 " style="  margin: 0.5%; background: #c0392b; color: white; font-size: 1.2em; border:#c0392b; " id={{instance.id}} disabled> <p class="text-center" style="height: 3em">{{instance.placeName}}<p> </button>                    {% elif instance.statePlace == False %}
+                    <button type="button" name="y" value="{{instance.placeName}}" class=" rounded col-3 h-100 col-md-1 text-center" data-toggle="modal" data-target="#_{{instance.placeName}}" style="margin: 0.5%;background: #2ecc71; color:white; border:  #4CAF50;" id="{{instance.id}}"><p style=" font-size: 1.2em; height: 3em" class="text-center">  {{instance.placeName}}</p> </button>
+                    <div class="modal fade" id="_{{instance.placeName}}" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Réservation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Voulez-vous confirmer votre réservation?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+                                    <button name="x" class="btn btn-primary check" value="{{instance.placeName}}" type="submit"> Confirmer </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    {% endif %} {% endfor %}
+
+                </form>
+            </div>
+        </div>
+        <!-- <div class="row d-flex justify-content-center mt-4 m-1">
+  <div class="  col-12 col-sm-10  Bienvenue shadown-lg text-center">
+    <form class="col-12 mt-5 mb-5 " method="POST" id="parking">{% csrf_token %}
+</form>
+</div>
+</div> -->
+    </div>
+    <script type="text/javascript">
+        { %
+            if res.number_reservation == 1 and res.arrived == False %
+        }
+        alert("vous n'êtes pas arrivé à temps") { % endif %
+        }
+        var parking = document.getElementById('parking')
+        var x = 0;
+
+        { %
+            if res.arrived == False and res.timeout == True and number_reservation == 1 %
+        }
+        alert("vous n'êtes pas arrivé à temps votre réservation à été annuler"); { % endif %
+        }
+
+        function buildParking() {
+
+            var url = "{% url 'api_places' parking=parking_id.id %}"
+            fetch(url)
+                .then((resp) => resp.json())
+                .then(function(data) {
+                    var places = data
+                    var x = 0
+                    p_total = places.length
+
+
+                    for (var i in places) {
+
+                        if (places[i].statePlace === true) {
+                            var occup_places = document.getElementById(places[i].id)
+                            if (occup_places.disabled === false) {
+                                occup_places.disabled = true
+                            }
+
+                            occup_places.style.background = "#c0392b";
+                            occup_places.style.border = "#c0392b";
+                            x = x + 1
+                                //occup_places.style.removeClass("border-success").addClass("border-danger");
+
+                        } else {
+                            var occup_places = document.getElementById(places[i].id)
+
+                            arr = places[i]
+                            occup_places.style.background = "#2ecc71";
+                            occup_places.style.border = "#4CAF50";
+
+                            //$("places[i].id").removeClass("border-danger").addClass("border-success ");
+                            //occup_places.style.removeClass("border-danger").addClass("border-success ");
+                        }
+
+                    }
+                    console.log(x);
+                    const f_places = document.getElementById("f_places")
+                    f_places.innerHTML = p_total - x;
+                })
+        }
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            setInterval(function() {
+                buildParking()
+
+            }, 2000);
+        })
+    </script>
+</body>
+
+</html>

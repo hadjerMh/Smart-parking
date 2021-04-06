@@ -1,0 +1,47 @@
+
+{% load static %}
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+        <meta name="description" content="Inscription administrateur GeoSpark parking intelligent">
+        <meta name="author" content="Mohabeddine Hadjer">
+        <link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" /> 
+    	<link href="{% static 'css/training.css' %}" rel="stylesheet">
+
+    		
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    		<script>
+    		$(function() {
+    			$("img").delay(900);
+    			$("#pw").tooltip();}
+    			);
+    		</script>
+    	<!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<title>Inscription admin GeoSpark</title>
+	</head>
+<body>
+<div class="container-fluid">
+<div class="row d-flex justify-content-center ">
+        <form class=" col-lg-7 col-sm-9 col-11 shadow align-middle mt-5" style="background: white" method="POST"> {% csrf_token %}
+             <div class="row d-flex justify-content-center">
+
+            <div class="col-12 d-flex justify-content-center" style="margin-bottom: -10%;"> <img src="{% static 'css/img/geoSpark_avec.png' %}" alt="logo"></div>
+                <br>
+      
+                {% load crispy_forms_tags %}
+                <div class="mt-5 col-10">
+                {{user_form|crispy}}
+                {{profil_form|crispy}}
+
+            <label for="cdt" class="col-12 float-left mt-2 mb-4" ><input class="col-1 mt-2" type="checkbox" name="conditions" id="cdt" required> <a class="col-11" href="#conditions.html" style="color:#3399ff;">J'accepte les conditions d'utilisation de l'application</a> </label>
+</div>
+
+<button type="reset" class="btn btn-primary col-sm-4 col-10 m-1">Annuler</button>
+<button type="submit" class="btn btn-primary col-sm-4 col-10 m-1"> Valider</button></form>
+</div> </div>
+</body>
+</html>

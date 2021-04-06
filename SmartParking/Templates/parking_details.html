@@ -1,0 +1,41 @@
+{% extends "admin.html" %}
+{% block content %}
+<h2 class="col-12">{{parking.compagnie_site}}</h2>
+<p class="col-12"> Bienvenue {{request.user}} le nombre de places de votre parking est de {{places|length}}.</p>
+<table class="table col-10">
+  <thead>
+    <tr>
+      <th scope="col">Place n°</th>
+      <th scope="col">Nom de la place</th>
+      <th scope="col">Etat de la place</th>
+      <th scope="col"> Utilisateur </th>
+      
+    </tr>
+ <tbody>
+{% for place in places %}
+    <tr>
+      <th scope="row">{{place.placeName}}</th>
+      <td>
+      {% if place.place_given_name == "null" or  place.place_given_name == "" or  place.place_given_name == "None" or place.place_given_name == " " %}
+       - 
+    
+      {% else %}
+        {{place.place_given_name}}
+      {% endif %}
+      </td>
+      {% if place.statePlace == True %}
+      <td>Prise</td>
+      {% elif place.statePlace == False %}
+      <td>Libre</td>
+      {% endif %}
+      <td>
+      	{% if place.user == "null" or place.user == "" or place.user == None %}
+      	-
+      	{% else %}
+      	{{place.user}}
+      	{% endif %}
+      </td>
+    </tr>
+{% endfor %}
+</tbody>
+{% endblock %}

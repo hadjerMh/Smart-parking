@@ -1,0 +1,80 @@
+
+{% load static %}
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Smart Parking (parking intelligent) personnalisé">
+		<meta name="author" content="Mohabeddine Hadjer">
+		<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+    	<link href="{% static 'css/training.css' %}" rel="stylesheet">
+
+    	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    		
+    	<!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		
+
+		<title>Création Smart Parking</title>
+	</head>
+	<body>
+
+<div class="container-fluid">
+	<div class="row">{% include 'navbar_admin.html' %} 
+	<div class="row d-flex justify-content-center ">
+
+		<form class=" col-lg-8 col-sm-10 col-11 shadow align-middle mt-5 mb-5" style="background: white" method="POST"> {% csrf_token %}
+			<div class="row justify-content-center m-1">
+
+		<!-- 	<div class="col-4 text-center mt-2"><img src="{% static 'images/Ericsson-logo-blue-300x224.png' %}" alt="Ericsson logo" width="60%"></div> -->
+			
+				<br>
+			
+			{% block content %}
+			<br>
+			<p class="col-12 mt-5"> Bienvenue dans l'espace dédié à la création de parking, vous devez préciser pour chaque:</p>
+			<label for="compagnie" class="col-sm-8  mt-1 mb-1">Nom de la compagnie: </label><input type="text" name="compagnie" id="compagnie" class="col-sm-3 mt-1 mb-1 col-11 form-control" required>
+			<label for="site" class="col-sm-8  mt-1 mb-1">Nom du site de la compagnie (son emplacement): </label><input type="text" name="site" id="site" class="col-sm-3 col-11 mt-1 mb-1 form-control" required>
+			
+			<label for="nombrePlaceTotal" class="col-sm-8 mt-1 mb-1" >Nombre de places dans le parking:</label>
+			<input type="text" name="nombrePlaceTotal" id="nombrePlaceTotal" class="col-sm-3 col-11 mt-1 mb-1 form-control" required>
+			<!-- <label for="nombrePlaceVisiteur" class="col-8 mt-1 mb-1">Nombre de places résevé aux visiteurs: </label> 
+			<input type="text" name="nombrePlaceVisiteur" class="col-3 mt-1 mb-1" required>
+			<small class="col-12 text-right" style="color:gray;">si il n'y en a pas il suffit d'inscrire un 0</small>
+			<label for="nombrePlaceReserve" class="col-8 mt-1 mb-1">Nombre de places VIP (des places près reservé pour certain employés tels que le PDG) </label> <input type="text" name="nombrePlaceReserve" class="col-3 mt-1 mb-1" required>
+			<small class="col-12 text-right" style="color:gray;">si il n'y en a pas il suffit d'inscrire un 0</small> -->
+			<label for="timeReservation" class="col-sm-8 mt-1 mb-1">Durée de la réservation à appliquer en minutes: </label> <input type="number" name="timeReservation" id="timeReservation" class="col-sm-3 col-11 mt-1 mb-1 form-control"  required> <br>
+			
+			
+			<legend class="col-12">Coordonnées GPS de votre parking: </legend> <br>
+
+			<label for="latitude" class="col-sm-8 mt-1 mb-1">Latitude: </label> <input type="text" name="latitude" id="latitude" class="col-sm-3 col-11 mt-1 mb-1 form-control"   required> <br>
+			<label for="longitude" class="col-sm-8 mt-1 mb-1">Longitude: </label> <input type="text" name="longitude" id="longitude" class="col-sm-3 col-11 mt-1 mb-1 form-control"   required> <br>
+			<legend class="col-12">Distance souhaitée pour que l'utilisateur soit considéré comme étant arrivé au parking (veuillez mentionner la distance en kilomères exemple 500m = 0.5km) </legend> <br>
+			<label for="distance" class="col-sm-8 mt-1 mb-1">Distance: </label> <input type="text" name="distance" id="distance" class="col-sm-3 col-11 mt-1 mb-1 form-control"  required> <br>
+
+			<!-- <label for="sup" class="col-11"> <input type="checkbox" name="sup" id="sup" class="col-1"> Voulez-vous supprimer les places créé précedemment</label>
+			</div> -->
+
+			<a href="{% url 'administrateur_homes' %}" type= "reset" class="btn btn-primary col-sm-4 col-5 mr-2 mt-3 mb-2">Annuler</a>
+			<button type= "submit" class="btn btn-primary col-sm-4 col-5 ml-2 mt-3 mb-2">Créer</button>
+			{% endblock %}
+		</form>
+	</div>
+</div></div>
+
+    		
+    		 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    		 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    		<script>
+    		$(function() {
+    			$("img").delay(900);}
+    			);
+    		AOS.init();
+    		</script> 
+</body>
+</html>

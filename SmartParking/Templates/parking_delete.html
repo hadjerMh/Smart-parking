@@ -1,0 +1,28 @@
+{% extends "admin.html" %}
+{% block content %}
+<h1 class="font-weight-normal col-12 mb-5" style="font-size: 1.8em">Bienvenue dans l'espace de suppression de parking</h1>
+{% for parking in parkings %}
+<p class="col-5 m-1 align-baseline">{{parking.compagnie_site}}</p>
+<button type="button" name="y"  class="btn col-5 btn-link" data-toggle="modal" data-target="#_{{parking.id}}" ><p style=" font-size: 1.2em; height: 3em" class="text-center">  Supprimer </p> </button>
+			 <div class="modal fade" id="_{{parking.id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="staticBackdropLabel">Supprimer</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      <p> êtes-vous sûr de vouloir supprimer le parking {{parking.compagnie_site}}?</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+			        <button name= "sup"  class="btn btn-primary check" value="{{parking.compagnie_site}}"  type="submit"> Confirmer </button>
+			    </div>
+			    </div>
+			    </div>
+			    </div> 
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,122 @@
+
+{% load qr_code %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Réussite de la réservation GeoSpark parking intelligent">
+	<meta name="author" content="Mohabeddine Hadjer">
+	<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+	
+	<link href="{% static 'css/home.css' %}" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<title>Réservation réussie</title>
+	<style type="text/css"> img{
+		width: 70%;
+	}
+	.navbar-brand{
+		width:75px;
+	}
+	html{
+		width:100%;
+	}
+</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">{% include 'navbar.html' %}
+	<div class="row d-flex justify-content-center">
+		<div class="jumbotron jumbotron-fluid mt-5 rounded col-md-8 col-11 shadow-sm "  style="background: white">
+
+  	<div class="row d-flex justify-content-center">
+  	 
+    <h1 class="display-4 m-2 text-center" style="font-size: 2.5em">Votre réservation a été validé:</h1>
+   <p class="col-11 text-center" style="font-size: 1.5em">
+    {{request.user}}, vous avez réservé la place numéro {{state.placeName}}
+     {% if state.place_given_name and state.place_given_name != "None" %}
+     du nom de {{state.place_given_name}}
+     {% endif %}<br>
+     A votre arrivé veuiller scanner le qr code suivant: <br>
+ 	</p>
+ 	 <div class="row "><span class="col-12 qrcode text-center">{% qr_from_text state.placeName size="t" image_format="png" error_correction="t" version=12 %}</span></div>
+ </div>
+ </div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+    $("img").delay(800);
+	});  
+	var url_res_detail = "{% url 'reservation_detail_api' pk=res.id %}"
+	var url_res_update = "{% url 'api_reservation_update' pk=res.id %}"
+	var url_place_update = "{% url 'places_update' pk1=state.id %}"
+	function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+function get_data(){
+	fetch(url_res_detail)
+	.then((resp) => resp.json())
+    .then(function(data){
+    	var reservation = data;
+    	/*console.log(data)*/
+    	if (reservation.scan_out===true){
+    		fetch(url_place_update,{
+    			method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({
+					"placeName":{{state.placeName}},
+					"statePlace": false,
+					"user": null,
+
+				})
+    		}).then(function(response){
+					/*console.log(response)*/})
+    	
+    	fetch(url_res_update,{
+    			method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+			body:JSON.stringify({	
+    			'arrived': false,
+         		'R': false,
+         		'timeout': false,
+         		"scan_entre": false,
+    			"scan_out": false,
+    			"number_reservation": 0,
+    		})
+    		}).then(function(response){
+    		window.location.href= "{% url 'home' %}"
+					/*console.log(response)*/})
+    	
+    	}
+    })}
+    setInterval(function(){
+    	get_data()
+}, 1000);
+
+</script>
+</body>
+</html>
