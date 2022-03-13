@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Smart Parking (parking intelligent) personnalisé">
+		<meta name="author" content="Mohabeddine Hadjer">
+		<link rel="icon" type="image/png" href="{% static 'css/img/geoSpark_sans_ecriture.png' %}" />
+    	<link href="{% static 'css/training.css' %}" rel="stylesheet">
+    	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<title> Accueil GeoSpark</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row d-flex justify-content-end">
+			{% include 'nav_acceuil.html' %}
+			<div class="row d-flex justify-content-center">
+				<div class="col-11 col-sm-10 m-3 mt-5 d-flex justify-content-center rounded shadow-sm" style="background-color: white;">
+					<div class="col-12 ">
+						<span class="col-12 mt-4 d-flex justify-content-center">
+							<img  src="{% static 'css/img/geoSpark_sans_ecriture.png' %}"  width="80px" height="80px">
+							<h1 class = "col-8 m-2" style="font-size: 1.8em">Bienvenue à GeoSpark!</h1>
+						</span>
+						<div  data-aos="fade-down">
+							<p class=" col-10 mt-4  mx-auto" id="p1" data-aos="fade-down">
+								<strong class="mt-3">Qu'est ce que geoSpark?</strong><br>
+	 							GeoSpark (Geolocalisation Smart parking) ou geolocalisation pour parking intelligent en français est une application qui permet l'optimisation du stationnement dans le secteur privé.<br>
+							</p>
+						</div>
+	 					<div  data-aos="fade-down"  data-aos-duration="1000">
+							<p class="col-10 mt-4 mx-auto" id="p2"> 
+								<strong class="mt-3">Qui peut l'utiliser?</strong><br>
+								Tout entreprise possédant un parking ainsi que tout employé de cette entreprise.<br>
+							</p>
+						</div>
+						<div  data-aos="fade-down"  data-aos-duration="2000">
+							<p class="col-10 mt-4 mx-auto" id="p3"> 
+	 							<strong class="mt-3">Qu'est ce que l'application permet de faire?</strong><br>
+	 							GeoSpark permet à un administrateur de créer s'il le souhaite un ou plusieur parking, modifier les paramètre du parking si besoin ou supprimer le parking s'il n'est pas satisfait de l'application.<br>
+								Pour l'utilisateur il sera possible de visualiser l'état du parking auquel il est affilié à temps réel ainsi que d'effectuer une réservation pendant un temps limitée qui est déterminé par l'administrateur, au bout de ce temps limité
+								si l'utilisateur est dans une certaine zone de proximité qui est également déterminée par l'administrateur, la réservation sera confirmée et il devra scanner un Qr Code avant d'accèder au parking ainsi qu'à la sortie du parking. Dans le cas contraire la réservation sera annulée et l'utilisateur devra effectuer une nouvelle réservation.<br>
+							</p>
+						</div>
+						<div  data-aos="fade-down"  data-aos-duration="1000">
+							<p class="col-10 mt-4 mx-sm-auto" id="p4"> 
+								<strong class="col-12 text-center">Je souhaite m'inscrire:</strong><br>
+									<ul class="nav nav-pills mt-3 mb-4 col-12 justify-content-center">
+  										<li class="nav-item col-12 col-sm-5 col-lg-4">
+    										<a class="nav-link active m-2 " href="{% url 'Inscription_admin' %}" >En tant qu'administrateur</a>
+ 										</li>
+  										<li class="nav-item col-12 col-sm-5 col-lg-4">
+    										<a class="nav-link active m-2" href="{% url 'Inscription' %}" >En tant qu'utilisateur</a>
+  										</li>
+									</ul>
+								</p>
+	
+								<p class="col-10 mt-4 mx-sm-auto" id="p5"> 
+										<strong class="col-10 mt-3">je suis déjà inscris et je souhaite me connecter a me connecter:</strong><br>
+										<ul class="nav nav-pills mt-3 col-12 mb-4 justify-content-center ">
+  											<li class="nav-item col-12 col-sm-5 col-lg-4">
+    											<a class="nav-link active m-2" href="{% url 'Connexion_admin' %}" >En tant qu'administrateur</a>
+  											</li>
+  											<li class="nav-item col-12 col-sm-5 col-lg-4">
+    											<a class="nav-link active m-2" href="{% url 'Connexion' %}" >En tant qu'utilisateur</a>
+  											</li>
+										</ul>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		 
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    	<script>
+    		$(function() {
+    			$("img").delay(900);
+    			}
+    			);
+    		
+    		  AOS.init();
+    	</script>
+	</body>
+</html>

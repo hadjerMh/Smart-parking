@@ -11,10 +11,9 @@ from django.contrib.auth.decorators import login_required
 from parking.models import smartParking, State, Reclamation
 from datetime import timedelta
 from Inscription.decoraters import allowed_users
-from Inscription.models import Inscriptions
 from django.contrib import messages
 
-# Create your views here.
+
 @unauthenticated_user
 def admin_inscription (request):
 	user_form = CreateUserForm()

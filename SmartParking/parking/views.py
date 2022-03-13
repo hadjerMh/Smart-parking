@@ -9,16 +9,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .reclamation_form import Reclamer
 from django.contrib import messages
-from Inscription.models import Inscriptions
+from Inscription.models import Profil
 from Inscription.decoraters import allowed_users
-# Create your views here.
+
 
 @login_required(login_url='Connexion')
 @allowed_users(allowed_roles=['customer'])
 def PlacesStatesUser(request):
 		#print(obj.placeName)
 	try:
-		compagnie = Inscriptions.objects.get(user=request.user)
+		compagnie = Profil.objects.get(user=request.user)
 		nom_compagnie = str(compagnie.entreprise)
 		print()
 		parking_id=smartParking.objects.get(compagnie_site=compagnie.parking.compagnie_site)
@@ -45,17 +45,12 @@ def PlacesStatesUser(request):
 			return redirect ('reservation_success')
 		elif res.R == True:
 			return redirect('Reservation')
-	
-	except Inscriptions.DoesNotExist:
-		 return HttpResponse("<h1>Le parking n'existe plus</h1>")
-
-
-	
+	except Profil.DoesNotExist:
+		return HttpResponse("<h1>Le parking n'existe plus</h1>")
 	queryset = State.objects.all().filter(parking=parking_id.id)
 	np=len(queryset) #nombre de places total
 	querysetfalse=State.objects.filter(statePlace=False, parking=parking_id)
 	npl=len(querysetfalse)	#nombre de place libre
-
 
 	context = {
 	'object_lists' : queryset,
@@ -65,10 +60,12 @@ def PlacesStatesUser(request):
 	'parking_id':parking_id
 	}
 	return render(request,'home.html',context) 
+
+
 @login_required(login_url='Connexion')
 @allowed_users(allowed_roles=['customer'])
 def MakeReservation(request):
-	compagnie = Inscriptions.objects.get(user=request.user)
+	compagnie = Profil.objects.get(user=request.user)
 	nom_compagnie = str(compagnie.entreprise)
 	parking=smartParking.objects.get(compagnie_site=nom_compagnie)
 	longitude = parking.parking_longitude
@@ -114,7 +111,7 @@ def MakeReservation(request):
 @login_required(login_url='Connexion')
 @allowed_users(allowed_roles=['customer'])
 def success_qrcode(request):
-	compagnie = Inscriptions.objects.get(user=request.user)
+	compagnie = Profil.objects.get(user=request.user)
 	nom_compagnie = str(compagnie.entreprise)
 	parking=smartParking.objects.get(compagnie_site=nom_compagnie)
 	state =  State.objects.get(user=request.user, parking=parking.id)
@@ -129,7 +126,7 @@ def success_qrcode(request):
 @login_required(login_url='Connexion')
 @allowed_users(allowed_roles=['customer'])
 def reclamations (request):
-	ins= Inscriptions.objects.get(user=request.user)
+	ins= Profil.objects.get(user=request.user)
 	parking= smartParking.objects.get(compagnie_site=str(ins.entreprise))
 	if request.method == "POST":
 		form = Reclamer(request.POST, request.FILES)

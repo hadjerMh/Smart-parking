@@ -27,12 +27,13 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('',bienvenue, name='bienvenue'),
     path('Inscription/', inscription_view, name='Inscription'),
     path('Reservation/', MakeReservation, name='Reservation'),
     path('Connexion/', loginView, name='Connexion' ),
     path('Deconnexion/', logoutView, name='Deconnexion'),
-    path('home/', PlacesStatesUser, name='home'),
+    path('Accueil/', PlacesStatesUser, name='home'),
     path('Reclamation/', reclamations, name='reclamations'),
     path('Profil/', userpage, name='profil'),
     path('reservation_success/', success_qrcode, name='reservation_success'),

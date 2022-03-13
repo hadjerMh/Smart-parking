@@ -1,5 +1,4 @@
 from django.contrib import admin
+from .models import Profil
 
-# Register your models here.
-from .models import Inscriptions
-admin.site.register(Inscriptions)
+admin.site.register(Profil)
