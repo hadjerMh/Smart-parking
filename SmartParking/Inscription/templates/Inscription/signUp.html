@@ -29,34 +29,34 @@
 				<div class="form-row d-flex justify-content-center">
 					<div class="form-group col-md-5 col-10 mb-0">
 				 		{{form.last_name|as_crispy_field}}
-						<br>
+					
 					</div>
 				 	<div class="form-group col-md-5 col-10 mb-0">
 				 		{{form.first_name|as_crispy_field}}
-						<br>
+					
 					</div>
 					<div class="form-group col-md-10 col-10 mb-0">
 				 		{{form.username|as_crispy_field}} 
-						<br>
+						
 					</div>
 				 	<div class="form-group col-md-10 col-10 mb-0">
 				 		{{form.email|as_crispy_field}} 
-						<br>
+						
 					</div>
 				 	<div class="form-group col-md-10 col-10 mb-0">
 				 		{{form.password1|as_crispy_field}} 
-						<br>
+						
 					</div>
 				 	<div class="form-group col-md-10 col-10 mb-0">
 				 		{{form.password2|as_crispy_field}} 
-						<br>
+						
 					</div>
 				</div>
 				<div class="form-row d-flex justify-content-center">
 					<div class="form-group col-lg-5 col-sm-10 col-10 mb-0">
 						<label for="numBadge" class="col-lg-12 col-12">Numéro du badge</label> 
 						<input  class="col-lg-12 col-12 mb-4 form-control" type="text" name="numBadge" id="numBadge" required>
-						<br>
+						
 					</div>
 					<div class="form-group col-lg-5 col-sm-10 col-10 mb-4">
 						<label class="col-lg-12 col-12  " for="phone">Numéro de téléphone </label> 
@@ -64,29 +64,31 @@
 					</div>
 					<label class="col-lg-10  col-10 mb-2 mt-4" for="car">Type de véhicule </label> 
 					<input  class="col-lg-10 col-10 mb-4 form-control" type="text" name="car" id="car" required>
-					<br>
+					
 					<label class="col-lg-10 col-10 mt-4 mb-2" for="numPlate">Plaque d'immatriculation </label> 
 					<input  class="col-lg-10 col-10 form-control" type="text" name="numPlate" id="numPlate" required>
-					<br>
+					
 					<label class="mr-sm-2 sr-only" for="company">Preference</label>
-      				<select class="custom-select mr-sm-2 col-10 mt-5" id="company" name="company">
+      				<select class="custom-select mr-sm-2 col-10 mt-5" id="company" name="company" required>
       					<option selected disabled>choisissez votre entreprise</option>
       					{% for parking in parkings %}
         				<option value="{{parking.compagnie_site}}">{{parking.compagnie_site}}</option>
         				{% endfor %}
       				</select>
 					<label for="cdt" class="col-10 float-left mt-4 mb-3" >
-					<input class="col-1 mt-2" type="checkbox" name="conditions" id="cdt" required> 
+					<input class="col-1 mt-2" type="checkbox" name="conditions" id="cdt"  required> 
 					<a class="col-11" href="#conditions.html" style="color:#3399ff;">J'accepte les conditions d'utilisation de l'application</a> </label>
 				</div>
 				<div class="justify-content-center text-center col-sm-12">
-					<a href="{% url 'Connexion' %}" style="color:white; border: #191970;font-size: 1.1em;" type="reset" class="btn btn-primary float-sm-left col-lg-5 col-sm-5  col-10 mb-2" id="resetForm"> 
+					<a href="{% url 'signIn' %}" style="color:white; border: #191970;font-size: 1.1em;" type="reset" class="btn btn-primary float-sm-left col-lg-5 col-sm-5  col-10 mb-2" id="resetForm"> 
 						Annuler
 					</a> 
 
 					<button style="color:white; border: #191970;font-size: 1.1em;" class="btn btn-primary col-lg-5 col-sm-5 col-10 float-sm-right " type="submit" id="subForm">  S'inscrire</button> 
 				
-					<p style="color: red;" >{{form.errors}}</p>
+					<p style="color: red;">
+						{{form.errors}}
+					</p>
 				
 				</div>
 			</div>
@@ -96,4 +98,4 @@
 	
 	</div>
 	</body>
-	</html>
+</html>

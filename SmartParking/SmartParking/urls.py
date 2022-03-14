@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Inscription.views import inscription_view, loginView, logoutView, userpage, bienvenue
+from Inscription.views import signUp, loginView, logoutView, userPage, globalHome
 from parking.views import PlacesStatesUser, MakeReservation, reclamations, success_qrcode
 from django.contrib.auth import views as auth_views
-from parking.api.views import places_ipa, reservation_api, reservation_update_api, places_update, reservation_detail_api, reclamation_api
-from admin_auth.views import admin_inscription, login_user, admin_home_view, admin_parking_create, logoutUser, admin_profil_update, admin_parking_update, parking_delete, dashbord, parking_details
+from parking.api.views import *
+from admin_auth.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -28,14 +28,15 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('',bienvenue, name='bienvenue'),
-    path('Inscription/', inscription_view, name='Inscription'),
-    path('Reservation/', MakeReservation, name='Reservation'),
-    path('Connexion/', loginView, name='Connexion' ),
+    path('',globalHome, name='globalHome'),
+    path('Inscription/', signUp, name='signUp'),
+    path('Connexion/', loginView, name='signIn' ),
     path('Deconnexion/', logoutView, name='Deconnexion'),
+    path('Profil/', userPage, name='profil'),
+    
+    path('Reservation/', MakeReservation, name='Reservation'),
     path('Accueil/', PlacesStatesUser, name='home'),
     path('Reclamation/', reclamations, name='reclamations'),
-    path('Profil/', userpage, name='profil'),
     path('reservation_success/', success_qrcode, name='reservation_success'),
 
     path('api_places/<str:parking>', places_ipa, name='api_places'),
