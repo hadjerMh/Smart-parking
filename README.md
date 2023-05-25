@@ -29,12 +29,12 @@
   <h3 align="center">Smart Parking Django Application</h3>
   
 </div>
-<h3 align="center">
-  <iframe width="560" height="315"
+
+ <iframe width="560" height="315"
 src="https://www.youtube.com/embed/G2qhaAxLsWI" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-</h3>
+
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
