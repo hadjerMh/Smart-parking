@@ -30,71 +30,18 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Smart Parking Django Application</h3>
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
 
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+This repository contains the code for a real-time web application for smart parking management. The application provides features such as user registration and login, real-time monitoring of parking slot availability, reservation management, geolocation services, generation of QR codes for successful arrival or proximity alerts, and an administration panel for managing parking slots.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,7 +50,7 @@ Use the `BLANK_README.md` to get started.
 ### Built With
 
 
-* [![Django][Next.js]][Next-url]
+* [![Django][Django]][Django-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 
@@ -138,14 +85,27 @@ Use the `BLANK_README.md` to get started.
 
 <!-- ROADMAP -->
 ## Roadmap
+User Registration and Login:
+- [x] Users can create an account and log in to access the application.
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+Real-Time Parking Slot Monitoring:
+- [x] Users can view the current states of parking slots in real time.
+- [] The application uses websockets or similar technology to provide instant updates on parking slot availability (it actually uses Ajax but would be better to implement Django channel).
+Reservation Management:
+- [x] Users can make reservations for a certain amount of time.
+- [x] The application allows users to select a parking slot and reserve it for a specific duration.
+Customizable Settings:
+- [x] The administration part of the application provides customization options.
+- [x] Administrators can configure various aspects such as parking slot distance of arrival, update parking slot states, and manage the different parking slots.
+Geolocation Services:
+- [x] The application utilizes geolocation feature.
+- [] Users can use their current location to identify nearby parking slots and navigate to them.
+QR Code Generation:
+- [x] QR codes are generated when users successfully arrive within a certain distance of the parking slot (add the message that we want to encore).
+- [] Users can scan the QR codes at the parking slots for seamless access or notifications.
+Administration Panel:
+- [x] The administration part includes a dashboard for managing the parking slots.
+- [x] Administrators can create new parking slots, customize distance of arrival, and update parking slot states.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
