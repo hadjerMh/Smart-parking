@@ -30,7 +30,10 @@
   
 </div>
 <h3 align="center">
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/G2qhaAxLsWI/0.jpg)](http://www.youtube.com/watch?v=G2qhaAxLsWI "Video Title")
+  <iframe width="560" height="315"
+src="https://www.youtube.com/embed/G2qhaAxLsWI" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 </h3>
 
 <!-- ABOUT THE PROJECT -->
