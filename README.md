@@ -33,7 +33,7 @@
 </div>
 <div align="center">
   <a href="http://www.youtube.com/watch?feature=player_embedded&v=G2qhaAxLsWI" target="_blank">
- <img src="http://img.youtube.com/vi/G2qhaAxLsWI/mqdefault.jpg" alt="Watch the Demo" width="240" height="180" border="10" />
+ <img src="http://img.youtube.com/vi/G2qhaAxLsWI/mqdefault.jpg" alt="Watch the Demo" width="500" height="500" border="10" />
 </a>
 </div>
 
