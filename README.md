@@ -30,16 +30,13 @@
   
 </div>
 
- <iframe width="560" height="315"
-src="https://www.youtube.com/embed/G2qhaAxLsWI" 
-frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Watch the video](https://img.youtube.com/vi/G2qhaAxLsWI/default.jpg)](https://youtu.be/G2qhaAxLsWI)
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Watch the video](https://img.youtube.com/vi/G2qhaAxLsWI/default.jpg)](https://youtu.be/G2qhaAxLsWI)
+
 
 This repository contains the code for a real-time web application for smart parking management. The application provides features such as user registration and login, real-time monitoring of parking slot availability, reservation management, geolocation services, generation of QR codes for successful arrival or proximity alerts, and an administration panel for managing parking slots.
 
