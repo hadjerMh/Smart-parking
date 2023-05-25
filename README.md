@@ -29,9 +29,9 @@
   <h3 align="center">Smart Parking Django Application</h3>
   
 </div>
-
+<h3 align="center">
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/G2qhaAxLsWI/0.jpg)](http://www.youtube.com/watch?v=G2qhaAxLsWI "Video Title")
-
+</h3>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
