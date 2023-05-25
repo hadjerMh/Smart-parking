@@ -27,10 +27,10 @@
 <div align="center">
 
   <h3 align="center">Smart Parking Django Application</h3>
-  [![IMAGE ALT TEXT](http://img.youtube.com/vi/G2qhaAxLsWI/0.jpg)](http://www.youtube.com/watch?v=G2qhaAxLsWI "Video Title")
+  
 </div>
 
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/G2qhaAxLsWI/0.jpg)](http://www.youtube.com/watch?v=G2qhaAxLsWI "Video Title")
 
 
 <!-- ABOUT THE PROJECT -->
