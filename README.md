@@ -18,12 +18,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 
 
@@ -50,7 +45,7 @@ This repository contains the code for a real-time web application for smart park
 ### Built With
 
 
-* [![Django][Django]][Django-url]
+* Django
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 
