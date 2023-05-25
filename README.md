@@ -80,25 +80,18 @@ This repository contains the code for a real-time web application for smart park
 
 <!-- ROADMAP -->
 ## Roadmap
-User Registration and Login:
-- [x] Users can create an account and log in to access the application.
 
-Real-Time Parking Slot Monitoring:
+- [x] Users can create an account and log in to access the application.
 - [x] Users can view the current states of parking slots in real time.
-- [] The application uses websockets or similar technology to provide instant updates on parking slot availability (it actually uses Ajax but would be better to implement Django channel).
-Reservation Management:
+- [ ] The application uses websockets or similar technology to provide instant updates on parking slot availability (it actually uses Ajax but would be better to implement Django channel).
 - [x] Users can make reservations for a certain amount of time.
 - [x] The application allows users to select a parking slot and reserve it for a specific duration.
-Customizable Settings:
 - [x] The administration part of the application provides customization options.
 - [x] Administrators can configure various aspects such as parking slot distance of arrival, update parking slot states, and manage the different parking slots.
-Geolocation Services:
 - [x] The application utilizes geolocation feature.
-- [] Users can use their current location to identify nearby parking slots and navigate to them.
-QR Code Generation:
+- [ ] Users can use their current location to identify nearby parking slots and navigate to them.
 - [x] QR codes are generated when users successfully arrive within a certain distance of the parking slot (add the message that we want to encore).
-- [] Users can scan the QR codes at the parking slots for seamless access or notifications.
-Administration Panel:
+- [ ] Users can scan the QR codes at the parking slots for seamless access or notifications.
 - [x] The administration part includes a dashboard for managing the parking slots.
 - [x] Administrators can create new parking slots, customize distance of arrival, and update parking slot states.
 
