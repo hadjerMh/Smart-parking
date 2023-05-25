@@ -29,10 +29,13 @@
   <h3 align="center">Smart Parking Django Application</h3>
   
 </div>
-
-</div>
 <div align="center">
   Watch the youtube demo !
+</div>
+
+
+<div align="center">
+  
   <a href="http://www.youtube.com/watch?feature=player_embedded&v=G2qhaAxLsWI" target="_blank">
  <img src="http://img.youtube.com/vi/G2qhaAxLsWI/mqdefault.jpg" alt="Watch the Demo" width="500" height="500" border="10" />
 </a>
